@@ -1,7 +1,8 @@
 "use client"
 
 import React from 'react';
-import ReactApexChart from 'react-apexcharts';
+import dynamic from 'next/dynamic';
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const PieChart = () => {
     const options = {
@@ -30,7 +31,7 @@ const PieChart = () => {
         },
         plotOptions: {
             pie: {
-                // expandOnClick: true, // Enable slice expansion on click
+                expandOnClick: true, // Enable slice expansion on click
                 donut: {
                     size: '50%',
                     labels: {

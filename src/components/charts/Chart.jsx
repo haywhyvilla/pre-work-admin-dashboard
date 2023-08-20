@@ -1,11 +1,16 @@
 "use client"
-
 import Image from "next/image"
 import decrease from "../../assets/decrease.svg"
 import increase from "../../assets/increase.svg"
 import React from 'react';
-import ReactApexChart from 'react-apexcharts';
 import PieChart from "./pieChart";
+import dynamic from 'next/dynamic';
+
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
+
+
+
+
 
 const Charts = () => {
 
