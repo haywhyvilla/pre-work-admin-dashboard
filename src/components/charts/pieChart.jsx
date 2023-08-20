@@ -30,7 +30,7 @@ const PieChart = () => {
         },
         plotOptions: {
             pie: {
-                expandOnClick: true, // Enable slice expansion on click
+                // expandOnClick: true, // Enable slice expansion on click
                 donut: {
                     size: '50%',
                     labels: {
@@ -42,7 +42,7 @@ const PieChart = () => {
                 }
             }
         },
-        colors: ['#E6A960','#305C45', '#EDF7D2', '#47A8BD', ] // Set custom colors for the slices
+        colors: ['#E6A960', '#305C45', '#EDF7D2', '#47A8BD',] // Set custom colors for the slices
     };
 
     const series = [38.4, 38.4, 38.4, 38.4]; // Data values for the slices
