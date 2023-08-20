@@ -9,9 +9,17 @@ const Table = () => {
     const itemsPerPage = 10;
     const [currentPage, setCurrentPage] = useState(1);
 
+    const itemsPerPageMobile = 5;
+    const [currentPageMobile, setCurrentPageMobile] = useState(1);
+
     // Calculate the index of the first and last item to display
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+
+    // Calculate the index of the first and last item to display
+    const indexOfLastItemMobile = currentPageMobile * itemsPerPageMobile;
+    const indexOfFirstItemMobile = indexOfLastItemMobile - itemsPerPageMobile;
 
     // Slice the data array to display only the items for the current page
     const currentItems = TableData.tableBody.slice(
@@ -19,15 +27,28 @@ const Table = () => {
         indexOfLastItem
     );
 
+
+    // Slice the data array to display only the items for the current page Mobile
+    const currentItemsMobile = TableData.tableBody.slice(
+        indexOfFirstItemMobile,
+        indexOfLastItemMobile
+    );
+
     // Calculate the total number of pages
     const totalPages = Math.ceil(TableData.tableBody.length / itemsPerPage);
+
+    // Calculate the total number of pages
+    const totalPagesMobile = Math.ceil(TableData.tableBody.length / itemsPerPageMobile);
 
     // Generate an array of page numbers (1, 2, 3, ..., totalPages)
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
+    // Generate an array of page numbers (1, 2, 3, ..., totalPages)
+    const pageNumbersMobile = Array.from({ length: totalPagesMobile }, (_, i) => i + 1);
+
     const filterlinks = [{ id: 1, stage: "All" }, { id: 2, stage: "Confirmed" }, { id: 3, stage: "Processing" }, { id: 4, stage: "Picked" }, { id: 5, stage: "Shipping" }, { id: 6, stage: "Shipped" }, { id: 7, stage: "Cancelled" },]
     return (
-        <section class="md:p-7 p-1">
+        <section class="md:p-7 p-3">
             <div class="md:flex block justify-between items-center mb-7">
                 <h2 class="text-[#313638] font-medium md:text-2xl text-base md:mb-0 mb-5">Orders</h2>
                 <div class="flex items-center md:justify-center justify-between md:gap-12">
@@ -120,15 +141,114 @@ const Table = () => {
                 </div>
             </div>
             <div class="w-full bg-white py-2 md:hidden block">
-                <button class="flex justify-center items-center gap-2 text-[#939393] border-[#939393] border-[0.6px] rounded-lg py-1 px-4">
+                <button class="flex justify-center items-center gap-2 text-[#939393] border-[#939393] border-[0.6px] rounded-lg py-1 px-4 mb-5">
                     <span>All</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
                         <path d="M6.25 8L0.837342 0.499999L11.6627 0.5L6.25 8Z" fill="#939393" />
                     </svg>
                 </button>
-                <div></div>
 
+                {
+                    currentItemsMobile.map((item) => (
+                        <div class="border-[#939393] rounded-md border-[0.4px] py-6 mb-3">
+                            <div class="flex justify-between items-center mx-3 mb-6">
+                                <h4 class="text-[#313638] text-base font-normal">{item.order}</h4>
+                                <div class="flex items-center gap-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M14 3.98665C11.78 3.76665 9.54667 3.65332 7.32 3.65332C6 3.65332 4.68 3.71999 3.36 3.85332L2 3.98665" stroke="#939393" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5.66699 3.31331L5.81366 2.43998C5.92033 1.80665 6.00033 1.33331 7.12699 1.33331H8.87366C10.0003 1.33331 10.087 1.83331 10.187 2.44665L10.3337 3.31331" stroke="#939393" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.5669 6.09332L12.1336 12.8067C12.0603 13.8533 12.0003 14.6667 10.1403 14.6667H5.86026C4.00026 14.6667 3.94026 13.8533 3.86693 12.8067L3.43359 6.09332" stroke="#939393" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M6.88672 11H9.10672" stroke="#939393" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M6.33301 8.33331H9.66634" stroke="#939393" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M8.83958 2.4L3.36624 8.19334C3.15958 8.41334 2.95958 8.84667 2.91958 9.14667L2.67291 11.3067C2.58624 12.0867 3.14624 12.62 3.91958 12.4867L6.06624 12.12C6.36624 12.0667 6.78624 11.8467 6.99291 11.62L12.4662 5.82667C13.4129 4.82667 13.8396 3.68667 12.3662 2.29334C10.8996 0.913335 9.78624 1.4 8.83958 2.4Z" stroke="#939393" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.92676 3.36664C8.21342 5.20664 9.70676 6.6133 11.5601 6.79997" stroke="#939393" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M2 14.6667H14" stroke="#939393" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="bg-[#939393] h-[0.6px] w-full mb-8">
+
+                            </div>
+                            <div class="px-3">
+                                <div class="flex justify-between items-center mb-4">
+                                    <p class="text-[#939393] font-normal text-sm">Product</p>
+                                    <h4 class="text-[#313638] text-xs font-normal">{item.product}</h4>
+                                </div>
+
+                                <div class="flex justify-between items-center mb-4">
+                                    <p class="text-[#939393] font-normal text-sm">Date</p>
+                                    <h4 class="text-[#313638] text-sm font-normal">{item.date}</h4>
+                                </div>
+
+                                <div class="flex justify-between items-center mb-4">
+                                    <p class="text-[#939393] font-normal text-sm">Customer name</p>
+                                    <h4 class="text-[#313638] text-xs font-normal">{item.customer}</h4>
+                                </div>
+
+                                <div class="flex justify-between items-center mb-4">
+                                    <p class="text-[#939393] font-normal text-sm">Revenue(#)</p>
+                                    <h4 class="text-#313638] text-sm font-normal">{item.revenue}</h4>
+                                </div>
+
+                                <div class="flex justify-between items-center mb-4">
+                                    <p class="text-[#939393] font-normal text-sm">Profit</p>
+                                    <h4 class="text-[#313638] text-sm font-normal">{item.netprofit}</h4>
+                                </div>
+
+                                <div class="flex justify-between items-center mb-4">
+                                    <p class="text-[#939393] font-normal text-sm">Status</p>
+                                    <h4 class="text-[#313638] text-xs font-normal">{item.status === 1 ? (<p class="text-[#53A178] text-sm font-normal">Completed</p>) : item.status === 2 ? (<p class="text-[#E6A960] text-lg font-normal">Refund</p>) : item.status === 3 ? (<p class="text-[#313638] text-lg font-normal">Shipped</p>) : item.status === 4 ? (<p class="text-[#E44339] text-lg font-normal">Pending</p>) : (null)}</h4>
+                                </div>
+
+                                <div class="flex justify-between items-center mb-4">
+                                    <p class="text-[#939393] font-normal text-sm">Category</p>
+                                    <h4 class="text-[#313638] text-xs font-normal">Fashion</h4>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    ))
+                }
+
+                <button class="flex justify-center items-center gap-2 text-[#939393] border-[#939393] border-[0.6px] rounded-lg py-1 px-4 mb-5">
+                    <span>5 per page</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                        <path d="M6.25 8L0.837342 0.499999L11.6627 0.5L6.25 8Z" fill="#939393" />
+                    </svg>
+                </button>
+
+                <div className="flex justify-center mt-4">
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                            <rect width="34" height="34" rx="4" fill="#F1F1F1" />
+                            <path d="M21 12.5566L16.0291 17.5275L21 22.4725L19.4725 24L13 17.5275L19.4725 11.055L21 12.5566Z" fill="#939393" />
+                        </svg>
+                    </button>
+                    {pageNumbersMobile.map((pageNumber) => (
+                        <button
+                            key={pageNumber}
+                            className={`px-3 py-1 mx-1 ${pageNumber === currentPage
+                                ? 'bg-[#305C45] text-white'
+                                : 'bg-[#F1F1F1] text-[#305C45]'
+                                } rounded-lg`}
+                            onClick={() => setCurrentPage(pageNumber)}
+                        >
+                            {pageNumber}
+                        </button>
+                    ))}
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                            <rect width="34" height="34" rx="4" fill="#F1F1F1" />
+                            <path d="M12 20.4434L16.9709 15.4725L12 10.5275L13.5275 9L20 15.4725L13.5275 21.945L12 20.4434Z" fill="#305C45" />
+                        </svg>
+                    </button>
+                </div>
             </div>
+
+
         </section>
     )
 }
